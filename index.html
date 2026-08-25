@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <meta
+    name="description"
+    content="V2 Quant Portfolio — stock research and paper portfolio dashboard."
+  >
+  <title>
+    V2 Quant Portfolio
+  </title>
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+<body>
+  <!-- =========================================
+       TOP NAVIGATION
+  ========================================== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">
+        Q
+      </div>
+      <div>
+        <h1>
+          V2 QUANT
+        </h1>
+        <p>
+          AI Stock Intelligence & Paper Portfolio
+        </p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="market-status">
+        <span class="status-dot"></span>
+        <span>
+          Quant Engine Online
+        </span>
+      </div>
+    </div>
+  </header>
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+  <main class="container">
+    <!-- =========================================
+         HERO
+    ========================================== -->
+    <section class="hero">
+      <div>
+        <p class="eyebrow">
+          QUANT RESEARCH TERMINAL
+        </p>
+        <h2>
+          Dynamic 12-Stock Portfolio
+        </h2>
+        <p class="hero-description">
+          ระบบคัดเลือกหุ้นจาก Technical,
+          Momentum, News, Catalyst,
+          Relative Strength, Upside
+          และ Risk เพื่อสร้างพอร์ตจำลอง
+          12 หุ้น
+        </p>
+      </div>
+      <button
+        class="primary-button"
+        onclick="rebalancePortfolio()"
+      >
+        Rebalance Portfolio
+      </button>
+    </section>
+    <!-- =========================================
+         MARKET REGIME
+    ========================================== -->
+    <section class="panel">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">
+            MARKET REGIME
+          </p>
+          <h2>
+            ภาพรวมตลาด
+          </h2>
+        </div>
+        <div class="market-score-box">
+          <span>
+            Market Score
+          </span>
+          <strong id="marketScore">
+            --
+          </strong>
+        </div>
+      </div>
+      <div class="market-grid">
+        <div class="metric-card">
+          <span>
+            Regime
+          </span>
+          <strong id="marketRegime">
+            --
+          </strong>
+          <small>
+            Overall risk environment
+          </small>
+        </div>
+        <div class="metric-card">
+          <span>
+            SPY Trend
+          </span>
+          <strong id="spyTrend">
+            --
+          </strong>
+          <small>
+            Broad market
+          </small>
+        </div>
+        <div class="metric-card">
+          <span>
+            QQQ Trend
+          </span>
+          <strong id="qqqTrend">
+            --
+          </strong>
+          <small>
+            Growth / technology
+          </small>
+        </div>
+        <div class="metric-card">
+          <span>
+            VIX
+          </span>
+          <strong id="vixValue">
+            17.8
+          </strong>
+          <small>
+            Volatility index
+          </small>
+        </div>
+        <div class="metric-card">
+          <span>
+            US 10Y
+          </span>
+          <strong id="yieldValue">
+            3.91%
+          </strong>
+          <small>
+            Treasury yield
+          </small>
+        </div>
+        <div class="metric-card">
+          <span>
+            Portfolio Size
+          </span>
+          <strong>
+            12
+          </strong>
+          <small>
+            Maximum holdings
+          </small>
+        </div>
+      </div>
+    </section>
+    <!-- =========================================
+         PORTFOLIO
+    ========================================== -->
+    <section class="panel">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">
+            CURRENT PAPER PORTFOLIO
+          </p>
+          <h2>
+            Top 12 Holdings
+          </h2>
+          <p class="section-description">
+            ระบบให้น้ำหนักหุ้นตาม
+            Quant Score, Confidence
+            และ Risk
+          </p>
+        </div>
+        <div class="portfolio-badge">
+          PAPER
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Rank
+              </th>
+              <th>
+                Stock
+              </th>
+              <th>
+                Price
+              </th>
+              <th>
+                Quant
+              </th>
+              <th>
+                Confidence
+              </th>
+              <th>
+                Upside
+              </th>
+              <th>
+                Risk
+              </th>
+              <th>
+                Weight
+              </th>
+              <th>
+                Role
+              </th>
+              <th>
+                Signal
+              </th>
+            </tr>
+          </thead>
+          <tbody id="portfolioBody">
+            <tr>
+              <td colspan="10">
+                <div class="loading-row">
+                  Loading portfolio...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!-- =========================================
+         ROTATION LOG
+    ========================================== -->
+    <section class="panel">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">
+            PORTFOLIO ROTATION
+          </p>
+          <h2>
+            Rotation Log
+          </h2>
+        </div>
+      </div>
+      <div
+        id="rotationLog"
+        class="rotation-log"
+      >
+        No portfolio rotation detected.
+      </div>
+    </section>
+    <!-- =========================================
+         SCANNER
+    ========================================== -->
+    <section class="panel">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">
+            QUANT STOCK SCANNER
+          </p>
+          <h2>
+            Ranked Opportunities
+          </h2>
+          <p class="section-description">
+            หุ้นทั้งหมดถูกจัดอันดับจาก
+            Quant Score และ
+            Expected Opportunity
+          </p>
+        </div>
+      </div>
+      <div class="scanner-toolbar">
+        <div class="search-box">
+          <span class="search-icon">
+            ⌕
+          </span>
+          <input
+            id="scannerSearch"
+            type="text"
+            placeholder="Search ticker..."
+            oninput="filterScanner()"
+          >
+        </div>
+        <div class="scanner-filter">
+          <select
+            id="sectorFilter"
+            onchange="filterScanner()"
+          >
+            <option value="ALL">
+              All sectors
+            </option>
+            <option value="Semiconductors">
+              Semiconductors
+            </option>
+            <option value="AI Infrastructure">
+              AI Infrastructure
+            </option>
+            <option value="Rare Earth">
+              Rare Earth
+            </option>
+            <option value="Energy">
+              Energy
+            </option>
+            <option value="Memory">
+              Memory
+            </option>
+            <option value="Infrastructure">
+              Infrastructure
+            </option>
+            <option value="Space">
+              Space
+            </option>
+            <option value="AI Healthcare">
+              AI Healthcare
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                #
+              </th>
+              <th>
+                Ticker
+              </th>
+              <th>
+                Sector
+              </th>
+              <th>
+                Quant
+              </th>
+              <th>
+                Confidence
+              </th>
+              <th>
+                RSI
+              </th>
+              <th>
+                MACD
+              </th>
+              <th>
+                Rel Vol
+              </th>
+              <th>
+                Relative Strength
+              </th>
+              <th>
+                Upside
+              </th>
+              <th>
+                Risk
+              </th>
+              <th>
+                Signal
+              </th>
+            </tr>
+          </thead>
+          <tbody id="scannerBody">
+            <tr>
+              <td colspan="12">
+                <div class="loading-row">
+                  Running quant scanner...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!-- =========================================
+         STOCK DETAIL
+    ========================================== -->
+    <section
+      id="stockDetail"
+      class="panel stock-detail hidden"
+    >
+    </section>
+    <!-- =========================================
+         SCORE EXPLANATION
+    ========================================== -->
+    <section class="panel">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">
+            QUANT MODEL
+          </p>
+          <h2>
+            How the Score Works
+          </h2>
+        </div>
+      </div>
+      <div class="model-grid">
+        <div class="model-card">
+          <span>
+            Technical
+          </span>
+          <strong>
+            22%
+          </strong>
+          <p>
+            RSI, MACD และ
+            momentum structure
+          </p>
+        </div>
+        <div class="model-card">
+          <span>
+            Trend
+          </span>
+          <strong>
+            14%
+          </strong>
+          <p>
+            EMA structure และ
+            price trend
+          </p>
+        </div>
+        <div class="model-card">
+          <span>
+            Momentum
+          </span>
+          <strong>
+            12%
+          </strong>
+          <p>
+            Short and medium-term
+            price momentum
+          </p>
+        </div>
+        <div class="model-card">
+          <span>
+            Volume
+          </span>
+          <strong>
+            10%
+          </strong>
+          <p>
+            Relative volume
+            และ participation
+          </p>
+        </div>
+        <div class="model-card">
+          <span>
+            News
+          </span>
+          <strong>
+            16%
+          </strong>
+          <p>
+            News sentiment
+            และ market impact
+          </p>
+        </div>
+        <div class="model-card">
+          <span>
+            Catalyst
+          </span>
+          <strong>
+            10%
+          </strong>
+          <p>
+            Earnings, contracts,
+            policy และ events
+          </p>
+        </div>
+        <div class="model-card">
+          <span>
+            Relative Strength
+          </span>
+          <strong>
+            10%
+          </strong>
+          <p>
+            Performance เทียบตลาด
+            และ sector
+          </p>
+        </div>
+        <div class="model-card">
+          <span>
+            Upside
+          </span>
+          <strong>
+            12%
+          </strong>
+          <p>
+            Potential opportunity
+            เทียบกับ valuation
+          </p>
+        </div>
+        <div class="model-card risk-card">
+          <span>
+            Risk Penalty
+          </span>
+          <strong>
+            -6%
+          </strong>
+          <p>
+            Volatility, dilution
+            และ event risk
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- =========================================
+         DISCLAIMER
+    ========================================== -->
+    <section class="disclaimer">
+      <strong>
+        Research & Simulation Only
+      </strong>
+      <p>
+        ระบบนี้เป็นเครื่องมือวิเคราะห์และพอร์ตจำลอง
+        ไม่ใช่คำแนะนำการลงทุน
+        และไม่ได้ส่งคำสั่งซื้อขายจริง
+      </p>
+    </section>
+  </main>
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+  <footer>
+    <div>
+      V2 Quant Portfolio
+    </div>
+    <span>
+      Quant research dashboard
+    </span>
+  </footer>
+  <!-- =========================================
+       APP
+  ========================================== -->
+  <script src="app.js"></script>
+  <!-- =========================================
+       FILTER SUPPORT
+       ใช้กับ scanner V2
+  ========================================== -->
+  <script>
+    let latestScannerResults = [];
+    const originalRenderScanner =
+      window.renderScanner;
+    if (typeof originalRenderScanner === "function") {
+      window.renderScanner =
+        function(scanner) {
+          latestScannerResults =
+            scanner;
+          originalRenderScanner(
+            scanner
+          );
+        };
+    }
+    function filterScanner() {
+      if (
+        !latestScannerResults ||
+        latestScannerResults.length === 0
+      ) {
+        return;
+      }
+      const search =
+        document
+          .getElementById(
+            "scannerSearch"
+          )
+          .value
+          .trim()
+          .toUpperCase();
+      const sector =
+        document
+          .getElementById(
+            "sectorFilter"
+          )
+          .value;
+      const filtered =
+        latestScannerResults.filter(
+          stock => {
+            const matchesSearch =
+              !search ||
+              stock.ticker
+                .toUpperCase()
+                .includes(search) ||
+              stock.company
+                .toUpperCase()
+                .includes(search);
+            const matchesSector =
+              sector === "ALL" ||
+              stock.sector === sector;
+            return (
+              matchesSearch &&
+              matchesSector
+            );
+          }
+        );
+      originalRenderScanner(
+        filtered
+      );
+    }
+  </script>
+</body>
+</html>
