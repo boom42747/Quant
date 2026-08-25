@@ -1,0 +1,381 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #07111f;
+  color: #e8edf5;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.topbar {
+  padding: 22px 5%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid #223044;
+
+  background: #091626;
+}
+
+.topbar h1 {
+  margin: 0;
+
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
+
+.topbar p {
+  margin: 5px 0 0;
+
+  color: #8494aa;
+}
+
+.market-status {
+  border: 1px solid #2a3a50;
+  border-radius: 100px;
+
+  padding: 8px 14px;
+
+  font-size: 13px;
+}
+
+#marketDot {
+  width: 8px;
+  height: 8px;
+
+  display: inline-block;
+
+  background: #36d399;
+
+  border-radius: 50%;
+
+  margin-right: 5px;
+}
+
+main {
+  max-width: 1250px;
+
+  margin: auto;
+
+  padding: 30px 20px;
+}
+
+.panel {
+  background: #0d1929;
+
+  border: 1px solid #1d2c40;
+
+  border-radius: 14px;
+
+  padding: 24px;
+
+  margin-bottom: 20px;
+}
+
+.section-header,
+.stock-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  color: #697c96;
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  margin: 0;
+}
+
+h2 {
+  margin: 6px 0 18px;
+}
+
+.big-score {
+  font-size: 42px;
+
+  font-weight: 800;
+}
+
+.market-grid,
+.indicator-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.metric,
+.indicator-card {
+  background: #111f32;
+
+  border: 1px solid #203149;
+
+  padding: 18px;
+
+  border-radius: 12px;
+}
+
+.metric span,
+.indicator-card span {
+  display: block;
+
+  color: #8393aa;
+
+  font-size: 12px;
+
+  margin-bottom: 8px;
+}
+
+.metric strong,
+.indicator-card strong {
+  font-size: 23px;
+}
+
+.indicator-card small {
+  display: block;
+
+  color: #8494aa;
+
+  margin-top: 7px;
+}
+
+.search-box {
+  display: flex;
+
+  gap: 10px;
+}
+
+input,
+textarea {
+  width: 100%;
+
+  background: #091421;
+
+  border: 1px solid #263a53;
+
+  border-radius: 9px;
+
+  color: white;
+
+  padding: 14px;
+
+  font-size: 15px;
+
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+
+  resize: vertical;
+
+  margin: 12px 0;
+}
+
+button {
+  border: none;
+
+  border-radius: 9px;
+
+  padding: 12px 19px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  background: #3b82f6;
+
+  color: white;
+}
+
+button:hover {
+  opacity: 0.88;
+}
+
+.quick-stocks {
+  margin-top: 12px;
+
+  display: flex;
+
+  gap: 8px;
+}
+
+.quick-stocks button {
+  background: #17273c;
+
+  border: 1px solid #293c55;
+}
+
+.score-area {
+  text-align: center;
+}
+
+.score-circle {
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+
+  border: 7px solid #344761;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+
+  font-weight: 800;
+}
+
+.signal {
+  margin-top: 10px;
+
+  padding: 7px;
+
+  border-radius: 6px;
+
+  font-weight: 800;
+}
+
+.stock-price {
+  font-size: 28px;
+
+  font-weight: bold;
+}
+
+.sub-panel {
+  margin-top: 20px;
+
+  padding: 20px;
+
+  background: #091522;
+
+  border-radius: 10px;
+
+  border: 1px solid #1c2c40;
+}
+
+.score-row {
+  display: grid;
+
+  grid-template-columns: 180px 1fr 50px;
+
+  gap: 15px;
+
+  align-items: center;
+
+  margin: 13px 0;
+}
+
+progress {
+  width: 100%;
+
+  height: 8px;
+}
+
+.thesis {
+  line-height: 1.7;
+
+  color: #c8d3e1;
+}
+
+.help {
+  color: #8697ae;
+}
+
+.news-result {
+  padding: 18px;
+
+  border-radius: 10px;
+
+  background: #091522;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+
+  padding: 14px;
+
+  border-bottom: 1px solid #1d2b3e;
+}
+
+th {
+  color: #7f90a8;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+}
+
+.positive {
+  color: #41d99b;
+}
+
+.negative {
+  color: #ff6678;
+}
+
+.neutral {
+  color: #f3c969;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  padding: 30px;
+
+  color: #63748b;
+
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+
+  .market-grid,
+  .indicator-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .topbar {
+    align-items: flex-start;
+
+    gap: 20px;
+
+    flex-direction: column;
+  }
+
+  .score-row {
+    grid-template-columns: 120px 1fr 40px;
+  }
+}
